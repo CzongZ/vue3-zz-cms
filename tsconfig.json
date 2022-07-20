@@ -1,17 +1,28 @@
 {
   "compilerOptions": {
+    // 目标代码
     "target": "esnext",
+    // 目标代码需要使用的模块化方案
     "module": "esnext",
+    // 执行一些严格的检查
     "strict": true,
+    // 对jsx做怎样的处理
     "jsx": "preserve",
+    // 按照node方式去解析模块
     "moduleResolution": "node",
+    // 跳过对一些库的类型检测
     "skipLibCheck": true,
+    // es module 和commonjs 是否可以同时使用
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    // 是否生成映射文件
     "sourceMap": true,
+    // 文件路径解析时，基本url
     "baseUrl": ".",
+    // 当前指定具体要使用的类型
     "types": ["webpack-env"],
     "paths": {
       "@/*": ["src/*"]
