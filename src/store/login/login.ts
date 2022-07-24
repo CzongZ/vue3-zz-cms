@@ -9,6 +9,7 @@ import {
 } from '@/service/login/login'
 import { IAccount } from '@/service/login/types'
 import localCache from '@/utils/cache'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 const loginModule: Module<ILoginStore, IRootStore> = {
   namespaced: true,
@@ -28,6 +29,11 @@ const loginModule: Module<ILoginStore, IRootStore> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+      // 将获取的routes添加到main中
+      const routes = mapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
