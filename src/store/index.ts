@@ -1,14 +1,15 @@
 import { createStore, Store, useStore as VuexStore } from 'vuex'
-import { IRootStore, IStoreType } from './types'
+import { IRootState, IStoreType } from './types'
 import login from './login/login'
-const store = createStore<IRootStore>({
+import system from './main/system'
+const store = createStore<IRootState>({
   state() {
     return {
       name: 'czz',
       password: '123'
     }
   },
-  modules: { login }
+  modules: { login, system }
 })
 // 初始化vuex值
 export function setupStore() {

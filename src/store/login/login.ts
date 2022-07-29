@@ -1,5 +1,5 @@
-import { ILoginStore } from './types'
-import { IRootStore } from '../types'
+import { ILoginState } from './types'
+import { IRootState } from '../types'
 import router from '@/router'
 import { Module } from 'vuex'
 import {
@@ -11,7 +11,7 @@ import { IAccount } from '@/service/login/types'
 import localCache from '@/utils/cache'
 import { mapMenusToRoutes } from '@/utils/map-menus'
 
-const loginModule: Module<ILoginStore, IRootStore> = {
+const login: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
     return {
@@ -47,7 +47,6 @@ const loginModule: Module<ILoginStore, IRootStore> = {
 
       // 2.请求用户信息
       const userInfoResult = await requestUserInfoById(id)
-      console.log(userInfoResult)
       const userInfo = userInfoResult.data
       // 修改state
       commit('changeUserInfo', userInfo)
@@ -80,4 +79,4 @@ const loginModule: Module<ILoginStore, IRootStore> = {
   }
 }
 
-export default loginModule
+export default login

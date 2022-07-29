@@ -10,7 +10,9 @@
           <nav-header-vue @fold-change="handleFoldChange" />
         </el-header>
         <el-main class="page-content">
-          <router-view />
+          <div class="page-container">
+            <router-view />
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -53,6 +55,10 @@ export default defineComponent({
 
 .page-content {
   height: calc(100% - 48px);
+  .page-container {
+    background-color: #fff;
+    border-radius: 5px;
+  }
 }
 
 .el-header,

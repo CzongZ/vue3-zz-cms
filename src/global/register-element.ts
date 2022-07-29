@@ -19,8 +19,22 @@ import {
   ElMenu,
   ElSubMenu,
   ElMenuItem,
-  ElMenuItemGroup
-} from 'element-plus/lib/index'
+  ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElRow,
+  ElCol,
+  ElOption,
+  ElSelect,
+  ElDatePicker,
+  ElConfigProvider,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn
+} from 'element-plus'
 
 // 按需引入图标
 import {
@@ -31,7 +45,10 @@ import {
   Goods,
   ChatLineRound,
   Fold,
-  Expand
+  Expand,
+  ArrowDown,
+  Search,
+  RefreshLeft
 } from '@element-plus/icons-vue'
 const components = [
   // 组件部分注册
@@ -39,6 +56,9 @@ const components = [
   ElForm,
   ElFormItem,
   ElInput,
+  ElOption,
+  ElSelect,
+  ElDatePicker,
   ElRadio,
   ElTabs,
   ElTabPane,
@@ -53,6 +73,17 @@ const components = [
   ElSubMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElRow,
+  ElCol,
+  ElConfigProvider,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn,
   // 图标部分注册
   User,
   Cellphone,
@@ -61,7 +92,10 @@ const components = [
   Goods,
   ChatLineRound,
   Fold,
-  Expand
+  Expand,
+  ArrowDown,
+  Search,
+  RefreshLeft
 ]
 
 export default function (app: App): void {

@@ -1,11 +1,13 @@
-import { ILoginStore } from './login/types'
-export interface IRootStore {
+import { ILoginState } from './login/types'
+import { ISystemState } from './main/system/type'
+export interface IRootState {
   name: string
   password: string
 }
 
 export interface IRootWithModule {
-  login: ILoginStore
+  login: ILoginState
+  system: ISystemState
 }
 
-export type IStoreType = IRootStore & IRootWithModule
+export type IStoreType = IRootState & IRootWithModule

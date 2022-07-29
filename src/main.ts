@@ -13,7 +13,7 @@ import './assets/css/index.less'
 const app = createApp(App)
 // 注册element及其他
 app.use(globalRegister)
-app.use(router)
 app.use(store)
 setupStore()
+app.use(router)
 app.mount('#app')

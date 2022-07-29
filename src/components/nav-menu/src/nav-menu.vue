@@ -5,6 +5,7 @@
       <span class="title" v-if="!collapse">Vue3+TS+ELp</span>
     </div>
     <el-menu
+      :default-active="defaultActive"
       class="el-menu-vertical"
       background-color="#0c2135"
       :collapse="collapse"
@@ -51,7 +52,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
-// import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   // 接收传值
@@ -71,6 +72,10 @@ export default defineComponent({
     //     path: item.url ?? '/not-found'
     //   })
     // }
+    const defaultActive = computed(() => {
+      const route = useRoute()
+      return route.path
+    })
     // 获取icon组件名字
     const oneIcon = computed<Array<any>>(() => {
       let newIconArr = userMenus.value.map((item: any) => {
@@ -79,7 +84,7 @@ export default defineComponent({
       })
       return newIconArr
     })
-    return { userMenus, oneIcon }
+    return { userMenus, oneIcon, defaultActive }
   }
 })
 </script>
