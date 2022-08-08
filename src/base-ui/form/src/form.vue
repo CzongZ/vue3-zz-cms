@@ -16,16 +16,18 @@
                 v-if="item.type === 'input' || item.type === 'password'"
               >
                 <el-input
-                  v-model="formData[`${item.field}`]"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handelValueChange($event, item.field)"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
                   style="width: 100%"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handelValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -39,7 +41,8 @@
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handelValueChange($event, item.field)"
                 />
               </template>
             </el-form-item>
@@ -51,6 +54,7 @@
   <div class="footer">
     <slot name="footer"></slot>
   </div>
+  <el-divider />
 </template>
 
 <script lang="ts">
@@ -89,13 +93,16 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const handelValueChange = (value: any, field: string) => {
+      emit('update:modelValue', { ...props.modelValue, [field]: value })
+    }
     // 解构成新的对象
-    const formData = ref({ ...props.modelValue })
+    // const formData = ref({ ...props.modelValue })
     // 发送事件
-    watch(formData, (newValue) => emit('update:modelValue', newValue), {
-      deep: true
-    })
-    return { formData }
+    // watch(formData, (newValue) => emit('update:modelValue', newValue), {
+    //   deep: true
+    // })
+    return { handelValueChange }
   }
 })
 </script>

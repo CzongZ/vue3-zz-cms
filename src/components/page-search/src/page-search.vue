@@ -6,8 +6,12 @@
       </template>
       <template #footer>
         <div class="foot-btns">
-          <el-button icon="RefreshLeft">重置</el-button>
-          <el-button type="primary" icon="Search">搜索</el-button>
+          <el-button icon="RefreshLeft" @click="handleRestClick"
+            >重置</el-button
+          >
+          <el-button type="primary" icon="Search" @click="handleQueryClick"
+            >搜索</el-button
+          >
         </div>
       </template>
     </zz-form-vue>
@@ -28,14 +32,28 @@ export default defineComponent({
   components: {
     zzFormVue
   },
-  setup() {
-    const formData = ref({
-      name: '',
-      password: '',
-      sport: '',
-      createTime: ''
-    })
-    return { formData }
+  emits: ['resetBtnClick', 'queryBtnClick'],
+  setup(props, { emit }) {
+    // 动态决定formData里的属性
+    const formItems = props.searchFormConfig.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ''
+    }
+    const formData = ref(formOriginData)
+
+    // 完善用户点击重置
+    const handleRestClick = () => {
+      formData.value = formOriginData
+
+      emit('resetBtnClick')
+    }
+
+    // 完善用户点击搜索
+    const handleQueryClick = () => {
+      emit('queryBtnClick', formData.value)
+    }
+    return { formData, handleRestClick, handleQueryClick }
   }
 })
 </script>

@@ -33,7 +33,10 @@ import {
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTable,
-  ElTableColumn
+  ElTableColumn,
+  ElDivider,
+  ElPagination,
+  ElImage
 } from 'element-plus'
 
 // 按需引入图标
@@ -48,7 +51,9 @@ import {
   Expand,
   ArrowDown,
   Search,
-  RefreshLeft
+  RefreshLeft,
+  Edit,
+  Delete
 } from '@element-plus/icons-vue'
 const components = [
   // 组件部分注册
@@ -84,6 +89,9 @@ const components = [
   ElBreadcrumbItem,
   ElTable,
   ElTableColumn,
+  ElDivider,
+  ElPagination,
+  ElImage,
   // 图标部分注册
   User,
   Cellphone,
@@ -95,7 +103,9 @@ const components = [
   Expand,
   ArrowDown,
   Search,
-  RefreshLeft
+  RefreshLeft,
+  Edit,
+  Delete
 ]
 
 export default function (app: App): void {

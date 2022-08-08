@@ -5,7 +5,6 @@ import router from './router'
 import store from './store'
 import { globalRegister } from './global'
 import { setupStore } from './store'
-
 // 全局样式重置
 import 'normalize.css'
 import './assets/css/index.less'
