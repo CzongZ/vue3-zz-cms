@@ -7,7 +7,7 @@
           :src="scope.row.imgUrl"
           fit="contain"
           :preview-src-list="[scope.row.imgUrl]"
-          preview-teleported="true"
+          preview-teleported
         ></el-image
       ></template>
 

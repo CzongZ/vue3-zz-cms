@@ -8,7 +8,7 @@
     >
       <!-- 头部插槽 -->
       <template #headerHandler>
-        <el-button type="primary">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary">新建</el-button>
       </template>
       <!-- 列中的插槽 -->
 
@@ -22,10 +22,10 @@
 
       <template #handler>
         <div class="handle-btns">
-          <el-button link type="primary" size="small"
+          <el-button v-if="isUpdate" link type="primary" size="small"
             ><el-icon><Edit /></el-icon>编辑</el-button
           >
-          <el-button link type="primary" size="small"
+          <el-button v-if="isDelete" link type="primary" size="small"
             ><el-icon><Delete /></el-icon>删除</el-button
           >
         </div>
@@ -48,6 +48,7 @@
 import { computed, defineComponent, ref, watch } from 'vue'
 import zzTableVue from '@/base-ui/table'
 import { useStore } from '@/store'
+import { userPermission } from '@/hooks/user-permission'
 export default defineComponent({
   components: {
     zzTableVue
@@ -64,6 +65,11 @@ export default defineComponent({
   },
 
   setup(props) {
+    // 获取操作的权限
+    const isCreate = userPermission(props.pageName, 'create')
+    const isUpdate = userPermission(props.pageName, 'update')
+    const isDelete = userPermission(props.pageName, 'delete')
+    const isQuery = userPermission(props.pageName, 'query')
     // 双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
 
@@ -71,6 +77,8 @@ export default defineComponent({
     watch(pageInfo, () => getPageData())
     // 发送请求
     const getPageData = (queryInfo: any = {}) => {
+      // 没有权限跳出
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -103,6 +111,9 @@ export default defineComponent({
       dataCount,
       pageInfo,
       otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete,
       getPageData
     }
   }
