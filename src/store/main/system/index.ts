@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 
 import { ISystemState } from './type'
 import { IRootState } from '@/store/types'
-import { getPageListData } from '@/service/main/system/system'
+import { deletePageData, getPageListData } from '@/service/main/system/system'
 const system: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
@@ -68,6 +68,18 @@ const system: Module<ISystemState, IRootState> = {
         pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
       commit(`change${changePageName}List`, list)
       commit(`change${changePageName}Count`, totalCount)
+    },
+    async deletePageDataAction({ dispatch }, payload: any) {
+      // pageName
+      // id
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await deletePageData(pageUrl)
+      // 重新获取数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: { offset: 0, size: 10 }
+      })
     }
   }
 }

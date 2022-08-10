@@ -54,7 +54,7 @@
   <div class="footer">
     <slot name="footer"></slot>
   </div>
-  <el-divider />
+  <el-divider v-if="showDivider" />
 </template>
 
 <script lang="ts">
@@ -72,7 +72,7 @@ export default defineComponent({
     },
     labelWidth: {
       type: String,
-      defualt: '100px'
+      default: 'auto'
     },
     itemStyle: {
       type: Object,
@@ -89,6 +89,10 @@ export default defineComponent({
         sm: 24,
         xs: 24
       })
+    },
+    showDivider: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['update:modelValue'],

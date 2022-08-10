@@ -2,7 +2,7 @@
   <div class="zz-table">
     <div class="header">
       <slot name="header">
-        <div class="title">{{ title }}</div>
+        <div class="title">{{ category }}列表</div>
         <div class="handler">
           <slot name="headerHandler"></slot>
         </div>
@@ -58,7 +58,7 @@ import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   props: {
-    title: {
+    category: {
       type: String,
       default: ''
     },
@@ -132,7 +132,7 @@ export default defineComponent({
 .footer {
   margin-top: 15px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   .el-pagination {
     text-align: right;
   }

@@ -9,6 +9,8 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="users"
+      @createBtnClick="handleCreateData"
+      @editBtnClick="handleEditData"
     >
       <template #status="scope">
         <el-button
@@ -19,6 +21,12 @@
         >
       </template>
     </page-content-vue>
+    <page-modal-vue
+      ref="pageModalRef"
+      :modalConfig="modalConfig"
+      title="新建用户"
+      :defaultInfo="defaultInfo"
+    ></page-modal-vue>
   </div>
 </template>
 
@@ -27,26 +35,40 @@ import { defineComponent } from 'vue'
 
 import PageSearchVue from '@/components/page-search'
 import PageContentVue from '@/components/page-content'
+import PageModalVue from '@/components/page-modal'
 
 import { searchFormConfig } from './config/search.config'
 import { contentTableConfig } from './config/content.config'
+import { modalConfig } from './config/modal.config'
 
 import { userPageSearch } from '@/hooks/user-page-search'
+import { userPageModal } from '@/hooks/user-page-modal'
 export default defineComponent({
   name: 'user',
   components: {
     PageSearchVue,
-    PageContentVue
+    PageContentVue,
+    PageModalVue
   },
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] =
       userPageSearch()
+    const [pageModalRef, defaultInfo, handleCreateData, handleEditData] =
+      userPageModal()
+
     return {
       searchFormConfig,
       contentTableConfig,
+      modalConfig,
+
       pageContentRef,
       handleResetClick,
-      handleQueryClick
+      handleQueryClick,
+
+      pageModalRef,
+      defaultInfo,
+      handleCreateData,
+      handleEditData
       // ...userPageSearch()
     }
   }

@@ -36,7 +36,8 @@ import {
   ElTableColumn,
   ElDivider,
   ElPagination,
-  ElImage
+  ElImage,
+  ElDialog
 } from 'element-plus'
 
 // 按需引入图标
@@ -92,6 +93,7 @@ const components = [
   ElDivider,
   ElPagination,
   ElImage,
+  ElDialog,
   // 图标部分注册
   User,
   Cellphone,

@@ -6,3 +6,10 @@ export function getPageListData(url: string, data: any) {
     data
   })
 }
+
+//url: users/id
+export function deletePageData(url: string) {
+  return zzRequest.delete<IDataType>({
+    url
+  })
+}

@@ -1,5 +1,5 @@
 export const contentTableConfig = {
-  title: '用户列表',
+  category: '角色',
   propList: [
     { prop: 'name', label: '角色名' },
     { prop: 'intro', label: '权限范围' },

@@ -8,7 +8,9 @@
     >
       <!-- 头部插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary">新建</el-button>
+        <el-button @click="handleCreateClick" v-if="isCreate" type="primary"
+          >新建{{ contentTableConfig.category }}</el-button
+        >
       </template>
       <!-- 列中的插槽 -->
 
@@ -20,12 +22,22 @@
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
 
-      <template #handler>
+      <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" link type="primary" size="small"
+          <el-button
+            @click="handleEditClick(scope.row)"
+            v-if="isUpdate"
+            link
+            type="primary"
+            size="small"
             ><el-icon><Edit /></el-icon>编辑</el-button
           >
-          <el-button v-if="isDelete" link type="primary" size="small"
+          <el-button
+            @click="handleDeleteClick(scope.row)"
+            v-if="isDelete"
+            link
+            type="primary"
+            size="small"
             ><el-icon><Delete /></el-icon>删除</el-button
           >
         </div>
@@ -63,8 +75,8 @@ export default defineComponent({
       required: true
     }
   },
-
-  setup(props) {
+  emits: ['createBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     // 获取操作的权限
     const isCreate = userPermission(props.pageName, 'create')
     const isUpdate = userPermission(props.pageName, 'update')
@@ -106,6 +118,19 @@ export default defineComponent({
         return true
       }
     )
+    // 删除/新增/编辑操作
+    const handleDeleteClick = (item: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+    const handleCreateClick = () => {
+      emit('createBtnClick')
+    }
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
+    }
     return {
       dataList,
       dataCount,
@@ -114,7 +139,10 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      getPageData
+      getPageData,
+      handleDeleteClick,
+      handleCreateClick,
+      handleEditClick
     }
   }
 })
