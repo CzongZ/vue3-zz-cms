@@ -8,6 +8,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-show="!item.isHidden"
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
@@ -33,6 +34,7 @@
                     v-for="option in item.options"
                     :value="option.value"
                     :key="option.value"
+                    :label="option.lable"
                   >
                     {{ option.title }}</el-option
                   >
@@ -58,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { IFormItem } from '@/base-ui/form/types'
 export default defineComponent({
   props: {
@@ -72,7 +74,7 @@ export default defineComponent({
     },
     labelWidth: {
       type: String,
-      default: 'auto'
+      default: '70px'
     },
     itemStyle: {
       type: Object,

@@ -19,6 +19,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     // 声明未使用
-    '@typescript-eslint/no-unused-vars': 'off'
+    '@typescript-eslint/no-unused-vars': 'off',
+    //非空断言
+    '@typescript-eslint/no-non-null-assertion': 'off'
   }
 }

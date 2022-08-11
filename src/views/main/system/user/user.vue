@@ -23,15 +23,17 @@
     </page-content-vue>
     <page-modal-vue
       ref="pageModalRef"
-      :modalConfig="modalConfig"
+      :modalConfig="modalConfigRef"
       title="新建用户"
+      pageName="users"
       :defaultInfo="defaultInfo"
     ></page-modal-vue>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@/store'
 
 import PageSearchVue from '@/components/page-search'
 import PageContentVue from '@/components/page-content'
@@ -53,13 +55,47 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handleResetClick, handleQueryClick] =
       userPageSearch()
+    // 补充新建和编辑的hook操作
+    // 处理表单中密码输入框显示逻辑
+    const createCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = false
+      console.log(passwordItem?.isHidden)
+    }
+    const editCallback = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      passwordItem!.isHidden = true
+    }
+    // 动态添加部门和角色的options
+    const store = useStore()
+    const modalConfigRef = computed(() => {
+      const departmentItem = modalConfig.formItems.find(
+        (item) => item.field === 'departmentId'
+      )
+      departmentItem!.options = store.state.entireDepartment.map((item) => {
+        return { title: item.name, value: item.id, lable: item.name }
+      })
+      const roleItem = modalConfig.formItems.find(
+        (item) => item.field === 'roleId'
+      )
+      roleItem!.options = store.state.entireRole.map((item) => {
+        return { title: item.name, value: item.id, lable: item.name }
+      })
+      return modalConfig
+    })
+
+    // 使用hook获取公共函数和变量
     const [pageModalRef, defaultInfo, handleCreateData, handleEditData] =
-      userPageModal()
+      userPageModal(createCallback, editCallback)
 
     return {
       searchFormConfig,
       contentTableConfig,
-      modalConfig,
+      modalConfigRef,
 
       pageContentRef,
       handleResetClick,
@@ -68,7 +104,9 @@ export default defineComponent({
       pageModalRef,
       defaultInfo,
       handleCreateData,
-      handleEditData
+      handleEditData,
+      createCallback,
+      editCallback
       // ...userPageSearch()
     }
   }
