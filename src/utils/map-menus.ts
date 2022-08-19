@@ -74,4 +74,17 @@ export function mapMenuToPermissions(userMenus: any[]) {
   return permissions
 }
 
+// 获取菜单子节点id
+export function menuMapLeafKeys(menuList: any[]) {
+  const leafKeys: number[] = []
+  const _recurseGetleaf = (menuList: any[]) => {
+    for (const menu of menuList) {
+      if (menu.children) _recurseGetleaf(menu.children)
+      else leafKeys.push(menu.id)
+    }
+  }
+  _recurseGetleaf(menuList)
+  return leafKeys
+}
+
 export { firstMenu }

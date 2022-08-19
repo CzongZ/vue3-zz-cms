@@ -9,7 +9,8 @@ const store = createStore<IRootState>({
       name: 'czz',
       password: '123',
       entireDepartment: [],
-      entireRole: []
+      entireRole: [],
+      entireMenu: []
     }
   },
   mutations: {
@@ -18,11 +19,14 @@ const store = createStore<IRootState>({
     },
     changeEntireRole(state, list) {
       state.entireRole = list
+    },
+    changeEntireMenu(state, list) {
+      state.entireMenu = list
     }
   },
   actions: {
     async getInitialDataAction({ commit }) {
-      // 请求部门和角色数据
+      // 请求部门、角色和菜单数据
       const departmentResult = await getPageListData('/department/list', {
         offset: 0,
         size: 999
@@ -32,10 +36,14 @@ const store = createStore<IRootState>({
         offset: 0,
         size: 999
       })
-      const { list: roleist } = roleResult.data
+      const { list: roleList } = roleResult.data
+
+      const menuResult = await getPageListData('/menu/list', {})
+      const { list: menuList } = menuResult.data
       // 保存数据
       commit('changeEntireDepartment', departmentList)
-      commit('changeEntireRole', roleist)
+      commit('changeEntireRole', roleList)
+      commit('changeEntireMenu', menuList)
     }
   },
   modules: { login, system }
@@ -43,7 +51,6 @@ const store = createStore<IRootState>({
 // 初始化vuex值
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
-  store.dispatch('getInitialDataAction')
 }
 
 // 封装支持类型推到的store

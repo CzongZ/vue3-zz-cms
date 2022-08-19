@@ -5,6 +5,7 @@ export interface IRootState {
   password: string
   entireDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 
 export interface IRootWithModule {

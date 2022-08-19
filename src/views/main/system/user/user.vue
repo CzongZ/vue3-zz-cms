@@ -24,10 +24,11 @@
     <page-modal-vue
       ref="pageModalRef"
       :modalConfig="modalConfigRef"
-      title="新建用户"
+      category="用户"
       pageName="users"
       :defaultInfo="defaultInfo"
-    ></page-modal-vue>
+    >
+    </page-modal-vue>
   </div>
 </template>
 

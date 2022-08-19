@@ -37,7 +37,8 @@ import {
   ElDivider,
   ElPagination,
   ElImage,
-  ElDialog
+  ElDialog,
+  ElTree
 } from 'element-plus'
 
 // 按需引入图标
@@ -94,6 +95,7 @@ const components = [
   ElPagination,
   ElImage,
   ElDialog,
+  ElTree,
   // 图标部分注册
   User,
   Cellphone,

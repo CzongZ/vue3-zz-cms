@@ -2,12 +2,13 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      :title="defTitle ?? title"
+      :title="defTitle"
       width="30%"
       center
       destroy-on-close
     >
       <zz-form-vue v-bind="modalConfig" v-model="formData"></zz-form-vue>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -30,7 +31,7 @@ export default defineComponent({
       type: String,
       required: true
     },
-    title: {
+    category: {
       type: String,
       default: ''
     },
@@ -39,6 +40,10 @@ export default defineComponent({
       required: true
     },
     defaultInfo: {
+      type: Object,
+      default: () => ({})
+    },
+    otherInfo: {
       type: Object,
       default: () => ({})
     }
@@ -50,7 +55,10 @@ export default defineComponent({
     watch(
       () => props.defaultInfo,
       (newValue) => {
-        defTitle.value = newValue.id ? `编辑${props.title.slice(2)}` : null
+        if (Object.keys(props.defaultInfo).length)
+          defTitle.value = `编辑${props.category}`
+        else defTitle.value = `新建${props.category}`
+
         for (const item of props.modalConfig.formItems) {
           formData.value[`${item.field}`] = newValue[`${item.field}`]
         }
@@ -64,14 +72,14 @@ export default defineComponent({
         //编辑
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id
         })
       } else {
         // 新建
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.otherInfo }
         })
       }
     }
