@@ -3,6 +3,7 @@ import { IRootState, IStoreType } from './types'
 import { getPageListData } from '@/service/main/system/system'
 import login from './login/login'
 import system from './main/system'
+import dashboard from './main/analysis/dashboard'
 const store = createStore<IRootState>({
   state() {
     return {
@@ -46,7 +47,7 @@ const store = createStore<IRootState>({
       commit('changeEntireMenu', menuList)
     }
   },
-  modules: { login, system }
+  modules: { login, system, dashboard }
 })
 // 初始化vuex值
 export function setupStore() {
